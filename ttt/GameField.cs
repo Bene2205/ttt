@@ -80,9 +80,11 @@ namespace ttt
             for (int row = 0; row < fieldSize; row++) {
                 for (int cell = 0; cell < fieldSize; cell++){
                     if(count == field) {
+                        // prüfe ob feld schon gefüllt ist
                         if(fields[row, cell] == "X" ||fields[row, cell] == "O"){
                             throw new ArgumentException();
                         }
+                        // schreibe wert in Zelle 
                         fields[row,cell] = symbol.ToString();
                     }
                     count++;
@@ -95,6 +97,7 @@ namespace ttt
             return fields;
         }
 
+        // prüfe ob aktueller spieler gewonnen hat (gleicher Symbole in einer Reihe)
         public bool isWinner()
         {
             string[] values = new string[fieldSize];
@@ -107,12 +110,14 @@ namespace ttt
                 {
                     values[cell] = fields[row,cell];
                 }
+                // prüfe ob gleiche X oder O in den Reihen
                 if(checkArray(values) == true) {
                     return true;
                 }
                 for (int column = 0; column < fieldSize; column++) {
                     values[column] = fields[column, row];
                 }
+                // prüfe ob gleiche X oder O in den Spalten 
                 if (checkArray(values) == true)
                 {
                     return true;
@@ -120,11 +125,12 @@ namespace ttt
                 valuesCross1[row] = fields[row, row];
                 valuesCross2[row] = fields[row, fieldSize - row - 1];
             }
+            // prüfe ob gleiche X oder O in den schräg untereinander liegenden Feldern 
             if (checkArray(valuesCross1) == true ||checkArray(valuesCross2) == true)
             {
                 return true;
             }
-
+            // kein spieler hat akutell gewonnen
             return false;
         }
 

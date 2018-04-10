@@ -13,7 +13,7 @@ namespace ttt
             Console.WriteLine("SETTINGS:");
             Console.WriteLine("Gamesize: (3: 3x3, 4: 4x4, ...)");
 
-            //display Gamefield
+            //initialisiere neues Spiel mit eingegebener Spielfeldgröße
             Game game = new Game(int.Parse(Console.ReadLine()));
             game.setPlayers();
             game.triggerStartingPlayer();

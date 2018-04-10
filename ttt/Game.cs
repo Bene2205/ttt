@@ -14,6 +14,7 @@ namespace ttt
             gameField = new GameField(gameSize);
         }
 
+        //erzeuge Spieler 1 & 2
         public void setPlayers() {
             Console.WriteLine("Player 1 Name: ");
             p1 = new Player(Console.ReadLine(), 'X');
@@ -28,6 +29,7 @@ namespace ttt
             Console.WriteLine();
         }
 
+        // Lose startspieler aus
         public void triggerStartingPlayer(){
             Random rnd = new Random();
             switch(rnd.Next(1,3)){
@@ -59,12 +61,14 @@ namespace ttt
         }
 
         public void newMove(){
+            //wechsle aktiven spieler
             switchActive();
             gameField.writeGameField();
             Console.WriteLine(getActivePlayer().getName() + "! It's your turn.");
             Console.WriteLine(getActivePlayer().getName() + " where do you want to place your symbol?");
             try
             {
+                // schreibe Symbol in angegebenen Zelle
                 gameField.setValueInField(int.Parse(Console.ReadLine()), getActivePlayer().getSymbol());
             } catch(ArgumentException e) {
                 Console.WriteLine(getActivePlayer().getName() + " this field is not active anymore. Try another.");
@@ -72,19 +76,22 @@ namespace ttt
             }
         }
 
-
+        // start Spiel solange gewinner == false 
         public void startGame() {
             while(gameField.isWinner() == false) {
                 newMove(); 
                 Console.Clear();
 
             }
+            //gewinner wurde gefunden
             if(gameField.isWinner() == true) {
                 gameField.writeGameField();
                 Console.WriteLine(getActivePlayer().getName() + " wins!!");
+                // Spiel neustarten=
                 Console.WriteLine("Do you want to restart? (y/n)");
                 string restart = Console.ReadLine();
                 if(restart == "y") {
+                    // wenn ja, dann starte von vorne
                     MainClass.run();
                 }
             }
